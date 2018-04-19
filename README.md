@@ -4,12 +4,16 @@ MyPaint is a great tool for digital drawing.
 To my knowledge, there exists no tool so far, which automatically 
 creates nice presentations out of MyPaint Layers.
 
+# Demonstration
+
+[Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018]
+(test/output\_complete/index.html)
+
 # MyPaintEdSlides
 
 *Currently the package is not final!*
 
 We sketch the basic idea behind the presentation generator.
-
 
 For a given .ora file, we extract all layers and
 assemble slides according to the following rule.

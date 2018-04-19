@@ -1,0 +1,10 @@
+				      <section data-background-color="#000000">
+                      <video>
+                        <source  data-autoplay  src="videos/expl.mp4" type="video/mp4" />
+                      </video>
+				    </section>
+				      <section data-background-color="#000000">
+                      <video>
+                        <source  data-autoplay  src="videos/sympl.mp4" type="video/mp4" />
+                      </video>
+				    </section>

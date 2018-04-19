@@ -6,8 +6,7 @@ creates nice presentations out of MyPaint Layers.
 
 # Demonstration
 
-[Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018]
-(test/output\_complete/index.html)
+[Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018](test/output\_complete/index.html)
 
 # MyPaintEdSlides
 

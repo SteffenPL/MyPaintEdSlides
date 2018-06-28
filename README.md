@@ -8,6 +8,12 @@ creates nice presentations out of MyPaint Layers.
 
 [Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018](https://steffenpl.github.io/MyPaintEdSlides/test/output_complete/index.html)
 
+[Short Talk on Parameter Idendification in ODE Models, University of Auckland 2018]
+(https://steffenpl.github.io/MyPaintEdSlides/test/param_id_in_ode_html/index.html)
+
+[Student-Talk about Tangential Spaces, Technische Universität Kaiserslautern 2018]
+(https://steffenpl.github.io/MyPaintEdSlides/test/student_talk_html/index.html)
+
 # MyPaintEdSlides
 
 *Currently the package is not final!*

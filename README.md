@@ -53,9 +53,8 @@ The HTML is based on reveal.js, we only generate the body for the presentation.
 
 # Current state
 
-At the moment a generat interface is missing. Therefore it is not 
-ready to be used without modifying the python code.
+At the moment a general interface is missing. Therefore it is not 
+ready to be used without modifying the python code :'(
 
-Anyway, the first presentation is already in work and "test\_ora\_presentation.py"
-demonstrates some features.
+Anyway, the first presentations are already there and a more user friendly version is in progress.
 

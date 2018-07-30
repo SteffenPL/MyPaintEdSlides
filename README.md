@@ -12,6 +12,8 @@ creates nice presentations out of MyPaint Layers.
 
 [Student-Talk about Tangential Spaces, Technische Universität Kaiserslautern 2018](https://steffenpl.github.io/MyPaintEdSlides/test/student_talk_html/index.html)
 
+[Presentation about Fiber based Muscle Simulation (unfinished project), TU Kaiserslautern 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_html/index.html)
+
 # MyPaintEdSlides
 
 *Currently the package is not final!*

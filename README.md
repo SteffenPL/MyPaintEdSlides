@@ -4,7 +4,7 @@ MyPaint is a great tool for digital drawing.
 To my knowledge, there exists no tool so far, which automatically 
 creates nice presentations out of MyPaint Layers.
 
-# Demonstration
+# Presentations created with MyPaintEdSlides
 
 [Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018](https://steffenpl.github.io/MyPaintEdSlides/test/output_complete/index.html)
 

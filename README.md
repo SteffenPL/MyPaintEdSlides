@@ -6,13 +6,16 @@ creates nice presentations out of MyPaint Layers.
 
 # Presentations created with MyPaintEdSlides
 
-[Talk on Symplectic Numerical Integration, Universtiy of Auckland 2018](https://steffenpl.github.io/MyPaintEdSlides/test/output_complete/index.html)
+[Talk on Symplectic Numerical Integration, Universtiy of Auckland, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/output_complete/index.html)
 
-[Short Talk on Parameter Idendification in ODE Models, University of Auckland 2018](https://steffenpl.github.io/MyPaintEdSlides/test/param_id_in_ode_html/index.html)
+[Short Talk on Parameter Idendification in ODE Models, University of Auckland, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/param_id_in_ode_html/index.html)
 
-[Student-Talk about Tangential Spaces, Technische Universität Kaiserslautern 2018](https://steffenpl.github.io/MyPaintEdSlides/test/student_talk_html/index.html)
+[Student-Talk about Tangential Spaces, Technische Universität Kaiserslautern, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/student_talk_html/index.html)
 
-[Presentation about Fiber based Muscle Simulation (unfinished project), TU Kaiserslautern 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_html/index.html)
+[Presentation about Fiber based Muscle Simulation (unfinished project), TU Kaiserslautern, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_html/index.html)
+
+[Presentation about Fiber based Muscle Simulation (Master's thesis), Hausdorff Center of Mathematics, Bonn, 2018]
+(https://steffenpl.github.io/MyPaintEdSlides/test/muscle_short_html/index.html)
 
 # MyPaintEdSlides
 

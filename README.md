@@ -14,8 +14,7 @@ creates nice presentations out of MyPaint Layers.
 
 [Presentation about Fiber based Muscle Simulation (unfinished project), TU Kaiserslautern, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_html/index.html)
 
-[Presentation about Fiber based Muscle Simulation (Master's thesis), Hausdorff Center of Mathematics, Bonn, 2018]
-(https://steffenpl.github.io/MyPaintEdSlides/test/muscle_short_html/index.html)
+[Presentation about Fiber based Muscle Simulation (Master's thesis), Hausdorff Center of Mathematics, Bonn, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_short_html/index.html)
 
 # MyPaintEdSlides
 

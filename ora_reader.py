@@ -6,10 +6,11 @@ import glob
 import xml.etree.ElementTree as ET
 from PIL import Image
 import numpy as np
+from copy import deepcopy
 
 class Layer:
-    def __init__(self, name : str):
-        self.name = name
+    def __init__(self, name):
+        self.name = deepcopy(name)
         self.img_np : np.array = None
         self.x = 0.
         self.y = 0.
@@ -48,10 +49,11 @@ def over(fg : Image, offset, bg : Image, fg_opacity=1.) -> Image:
     return bg
 
 class OraReader:
-    def __init__(self, buildDir : None, outputDir : None):
+    def __init__(self, buildDir, outputDir, use_groups):
         self.buildDir = buildDir
         self.outputDir = outputDir
         self.prefix = "slide"
+        self.use_groups = use_groups
 
         if buildDir is None:
             # create temporary build dir
@@ -91,31 +93,81 @@ class OraReader:
 
         z = 0
 
-        for layer_elem in reversed(root.findall(".//layer")):
-            # load .png
-            img_path = unzip_dir + "/" + layer_elem.attrib["src"]
+        if self.use_groups:
+                
+            last_slide = [0]
+            current_slides = []
+            
+            
+            def parse_stack(stack):
+                nonlocal last_slide, current_slides
+                
+                last_slide[-1] += 1
+                last_slide.append(0)
+                
+                for layer_elem in stack:
+                    print("blub: ", last_slide, layer_elem.attrib["name"])
+                    
+                    if layer_elem.tag == 'stack':
+                        parse_stack(layer_elem)
+                    
+                    if layer_elem.tag == 'layer':
+                        img_path = unzip_dir + "/" + layer_elem.attrib["src"]
 
-            slide_content : str = layer_elem.attrib["name"]
-            parts = slide_content.split(":", maxsplit=1)
-            name = parts[0]
-
-            print("Create layer %s" % name )
-            layer = Layer(name)
-            layer.x = int(layer_elem.attrib["x"])
-            layer.y = int(layer_elem.attrib["y"])
-            layer.opacity = float(layer_elem.attrib["opacity"])
-            layer.img_np = image_to_array(Image.open(img_path, 'r'))
-
-            if len(parts) == 2:
-                self.slide_defs.append(slide_content)
-            layer.z = z
-
-            if layer.name == "background":
-                self.bg = layer
-            else:
-                self.layers.append(layer)
-
-            z += 1
+                        last_slide[-1] += 1
+                        print("Create layer %s" % last_slide )
+                        layer = Layer(last_slide)
+                        layer.x = int(layer_elem.attrib["x"])
+                        layer.y = int(layer_elem.attrib["y"])
+                        layer.opacity = float(layer_elem.attrib["opacity"])
+                        layer.img_np = image_to_array(Image.open(img_path, 'r'))
+                        layer.z = z
+            
+                        if layer_elem.attrib["name"].lower() == "background":
+                            self.bg = layer
+                        else:
+                            if not "(skip)" in layer.name:
+                                current_slides.append(deepcopy(last_slide))
+                                self.slide_defs.append(deepcopy(current_slides))
+                
+                            self.layers.append(layer)
+                    
+                # remove all slides from the current group from the current_slides list
+                group_level = len(last_slide)
+                
+                current_slides = [name for name in current_slides if len(name) < group_level]
+                last_slide.pop()
+            
+            parse_stack(root)
+            
+        else:
+    
+            for layer_elem in reversed(root.findall(".//layer")):
+                # load .png
+                img_path = unzip_dir + "/" + layer_elem.attrib["src"]
+                print(img_path)
+    
+                slide_content : str = layer_elem.attrib["name"]
+                parts = slide_content.split(":", maxsplit=1)
+                name = parts[0]
+    
+                print("Create layer %s" % name )
+                layer = Layer(name)
+                layer.x = int(layer_elem.attrib["x"])
+                layer.y = int(layer_elem.attrib["y"])
+                layer.opacity = float(layer_elem.attrib["opacity"])
+                layer.img_np = image_to_array(Image.open(img_path, 'r'))
+    
+                if len(parts) == 2:
+                    self.slide_defs.append(slide_content)
+                layer.z = z
+    
+                if layer.name == "background":
+                    self.bg = layer
+                else:
+                    self.layers.append(layer)
+    
+                z += 1
 
     def get_slide_filename(self, slide_number):
         return self.prefix + "_" + str(slide_number).zfill(4) + ".png"
@@ -168,9 +220,9 @@ class OraPresentation:
 
         self.ora_slides.append(ora_slide)
 
-    def load_from_folder(self, pattern, with_background=False, overwrite=True):
+    def load_from_folder(self, pattern, with_background=False, overwrite=True, use_groups=True):
         for file in sorted(glob.glob(pattern)):
-            ora = OraReader(buildDir=self.buildDir, outputDir=self.outputDir)
+            ora = OraReader(buildDir=self.buildDir, outputDir=self.outputDir, use_groups=use_groups)
             ora.load_file(file)
             ora.generate_slides(with_background=with_background, overwrite=overwrite)
             self.add_slide(ora)

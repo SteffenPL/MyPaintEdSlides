@@ -41,8 +41,8 @@ def over(fg : Image, offset, bg : Image, fg_opacity=1.) -> Image:
     dst_a = bg[y+b:y+h, x+a:x+w, 3]
 
     out_a = src_a + dst_a * (1.0 - src_a)
-    out_rgb = (src_rgb * src_a[..., None]
-               + dst_rgb * dst_a[..., None] * (1.0 - src_a[..., None]))
+    out_rgb = (src_rgb * src_a[...,None]
+               + dst_rgb * (1.0 - src_a[..., None]))
 
     bg[y+b:y+h, x+a:x+w, :3] = out_rgb
     bg[y+b:y+h, x+a:x+w, 3] = out_a
@@ -105,8 +105,7 @@ class OraReader:
                 last_slide[-1] += 1
                 last_slide.append(0)
                 
-                for layer_elem in stack:
-                    print("blub: ", last_slide, layer_elem.attrib["name"])
+                for layer_elem in reversed(stack):
                     
                     if layer_elem.tag == 'stack':
                         parse_stack(layer_elem)
@@ -126,7 +125,7 @@ class OraReader:
                         if layer_elem.attrib["name"].lower() == "background":
                             self.bg = layer
                         else:
-                            if not "(skip)" in layer.name:
+                            if not "(skip)" in layer_elem.attrib["name"].lower():
                                 current_slides.append(deepcopy(last_slide))
                                 self.slide_defs.append(deepcopy(current_slides))
                 
@@ -188,7 +187,9 @@ class OraReader:
                 if with_background:
                     img_np = self.bg.img_np
                 else:
-                    img_np = np.zeros((self.height, self.width, 4), dtype=np.float32)
+                    img_np = np.ones((self.height, self.width, 4), dtype=np.float32)
+                    img_np[:,:,3] = 0
+
 
                 for layer in self.layers:
                     if layer.name in slide_def:
@@ -230,6 +231,7 @@ class OraPresentation:
     def write_html(self, html_template_filename=None):
         template = open(html_template_filename, mode="r")
 
+        os.makedirs(self.outputDir, exist_ok=True)
         out = open(self.outputDir + "/index.html", mode="w")
 
         tab = 2

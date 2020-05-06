@@ -6,7 +6,7 @@ creates nice presentations out of MyPaint Layers.
 
 # Usage
 
-**If someone wants to use it, please write me a message and I will document the useage!**
+**If someone wants to use it, please write me a message and I will document the usage!**
 
 In very, very short:
  1. use MyPaint to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.

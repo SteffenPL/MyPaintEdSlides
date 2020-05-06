@@ -16,6 +16,9 @@ creates nice presentations out of MyPaint Layers.
 
 [Presentation about Fiber based Muscle Simulation (master's thesis), Hausdorff Center of Mathematics, Bonn, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_short_html/index.html)
 
+[Presentation on Partially kinetic systems (aka 'particles on rails'), Kinetic Theory Coffee Break, 2020](https://steffenpl.github.io/MyPaintEdSlides/test/partially_kinetic_systems/index.html)
+
+
 # MyPaintEdSlides
 
 *Currently the package is not final!*
@@ -27,36 +30,45 @@ assemble slides according to the following rule.
 
 Example:
 
-slides.ora:
+000_title.ora:
 - layer 0: name="background"
-- layer 1: name="t"
-- layer 2: name="a"
-- layer 3: name="b:ta"
-- layer 4: name="c:tb"
+- layer 1
+- layer 2
+- layer 3
 
-ref.ora
+001_slide.ora:
 - layer 0: name="background"
-- layer 1: name="a:\_"
+- layer 1
+- group 1:
+  - layer 2
+  - group 2:
+    - layer 3
+  - layer 4
+- layer 5
+
 
 This would generate a HTML presentation with
 two slides, containting the following content:
 
 slide 0:
-- subslide 0: layer-{1,2,3}
-- subslude 0: layer-{1,3,4}
+- subslide with layer 1
+- subslide with layer 1,2
+- subslide with layer 1,2,3
 
 slide 1:
-- subslide 0: layer-{1}
+- subslide with layer 1
+- subslide with layer 1,2 (enter group 1)
+- subslide with layer 1,2,3 (enter group 2)
+- subslide with layer 1,2,4 (leave group 2, still within group 1)
+- subslide with layer 1,5 (leave group 1)
 
 If wanted, the background could also be added, otherwise
 a global background is used.
 
-The HTML is based on reveal.js, we only generate the body for the presentation.
+The HTML is based on reveal.js, this python script does only generate the body for the presentation
+and composes the layers according to their groups.
 
-# Current state
+# Documentation
 
-At the moment a general interface is missing. Therefore it is not 
-ready to be used without modifying the python code :'(
-
-Anyway, the first presentations are already there and a more user friendly version is in progress.
-
+There is no documentation yet. If someone is interested in using it, please write me or open an issue.
+Then, I will provide install instructions and more detailed documenation.

@@ -16,6 +16,8 @@ creates nice presentations out of MyPaint Layers.
 
 [Presentation about Fiber based Muscle Simulation (master's thesis), Hausdorff Center of Mathematics, Bonn, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/muscle_short_html/index.html)
 
+[Presentation on Partially kinetic systems (aka 'particles on rails'), Kinetic Theory Coffee Break, 2020](https://steffenpl.github.io/MyPaintEdSlides/test/partially_kinetic_systems/index.html)
+
 # MyPaintEdSlides
 
 *Currently the package is not final!*

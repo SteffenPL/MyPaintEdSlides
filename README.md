@@ -4,6 +4,18 @@ MyPaint is a great tool for digital drawing.
 To my knowledge, there exists no tool so far, which automatically 
 creates nice presentations out of MyPaint Layers.
 
+# Usage
+
+**If someone wants to use it, please write me a message and I will document the useage!**
+
+In very, very short:
+ 1. use MyPaint to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
+ 2. copy the `demo` folder to a place which will later contain the final presentation. (We need the backgrounds and the reveal.js files)
+ 3. run ```python ora_interface.py "<input folder>" <output_folder>```
+
+Now, the output folder contains the `index.html` which is the presentation.
+
+
 # Presentations created with MyPaintEdSlides
 
 [Talk on Symplectic Numerical Integration, Universtiy of Auckland, 2018](https://steffenpl.github.io/MyPaintEdSlides/test/output_complete/index.html)

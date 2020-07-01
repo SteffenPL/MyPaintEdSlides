@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/my_white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+				<h1>Position-based dynamics for PSE simulations</h1>
+				</section>
+				
+				<section>
+					<section data-markdown><textarea data-template>
+						## Contents
+						1. Overview
+						2. Conditional stability of DAHA
+						3. Position-based dynamics (PBD)
+						4. Comparison
+					</textarea>	</section >
+				</section>
+				
+				<section>
+					<section data-markdown><textarea data-template>
+						# Overview
+					</textarea>	</section >
+					<section data-markdown><textarea data-template>
+						## I want to... 
+						
+						1. <!-- .element: class="fragment" -->
+						Replace quasi-steady state model 
+						$$\min_x W(x) \quad\text{s.t.}\quad c_k(x) \geq 0 $$ 
+						with gradient flow model 
+						$$\mu \dot x = -\nabla W + \sum_k \lambda_k \nabla c_k, \quad\text{s.t.} c_k(x) \geq 0.$$			
+						
+						2. <!-- .element: class="fragment" -->
+						Use position-based dynamics (PBD) instead of damped Arrow-Hurwiz algorithm (DAHA). 
+					</textarea>	</section >
+										
+					<section data-markdown><textarea data-template>
+						## Why?
+						- Accuray: DAHA does not fully reach local equilibria. 
+						
+						- Simplicity: DAHA solves a numerically much harder problem than neccesary.
+						
+						- Speed: Current runtime is 60 minutes per simulation.
+						
+						---
+						
+						### Gradient flow model improves accuracy. <!-- .element: class="fragment" -->
+						### PBD yields speed and simplicity. <!-- .element: class="fragment" -->
+					</textarea>	</section>
+					
+					<section data-markdown><textarea data-template>
+					## Long story short: DAHA: 60 minutes | PBD: 90 seconds runtime
+					
+					<video controls data-autoplay 
+						src="data/pbd.mp4" style="height:500px"></video>
+					</textarea>	</section >
+					
+					<section data-markdown><textarea data-template>
+						## Derivation of the gradient flow model
+						
+						- <!-- .element: class="fragment" -->
+						For $T \mapsto T + \Delta T$ we solve
+						$$\min_x W(x) \quad\text{s.t.}\quad c_k(x) \geq 0. $$
+						
+						- <!-- .element: class="fragment" -->
+						DAHA integrates an ODE of the form
+						$$ \dot x = - \nabla W + \sum_k \tilde{\lambda}_k \nabla c_k(x)
+						\quad \text{s.t.} \quad c_k \geq 0.$$
+						Stopping criterion gives terminal time $t^*$.
+						
+						- <!-- .element: class="fragment" -->
+						Use time-scale $\tilde t = \mu(T) t$ with
+						$\quad \Delta T = \tilde t^* = \mu(T) t^* \quad \Rightarrow \quad \mu(T) = \frac{\Delta T}{t^*}$
+
+						- <!-- .element: class="fragment highlight" -->
+						Gradient flow 
+						$$ \mu(T) \frac{\mathrm d x}{\mathrm d \tilde t} = - \nabla W + \sum_k \tilde \lambda_k \nabla c_k 
+						\quad \text{s.t.} \quad c_k(x) \geq 0.$$
+					</textarea>	</section>
+					
+					<section data-markdown><textarea data-template>
+						## Derivation of the gradient flow model (cont.)
+						
+						- <!-- .element: class="fragment highlight" -->
+						Gradient flow 
+						$$ \mu(T) \frac{\mathrm d x}{\mathrm d \tilde t} = - \nabla W + \sum_k \tilde \lambda_k \nabla c_k 
+						\quad \text{s.t.} \quad c_k(x) \geq 0.$$
+						
+						- <!-- .element: class="fragment" -->
+						Current model: $\quad \mu(T) = \frac{\Delta T}{t^*(T)}$ depends on numerical parameter $\varepsilon$ (error tolerance).
+							- <!-- .element: class="fragment" --> $t^* \to \infty \quad \Rightarrow \quad \mu \to 0\quad$ (yields quasi-steady state). 
+							- <!-- .element: class="fragment" --> In practice, $t^* \leq 100$!?
+						
+						- <!-- .element: class="fragment" -->
+						New model: The damping coefficient $\mu$ is constant and a new model parameter.
+							- <!-- .element: class="fragment" --> Direct control of speed towards equilibrium.
+							- <!-- .element: class="fragment" --> Current value: $\mu \sim 3$.
+					</textarea>	</section>
+				</section>
+				
+				
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							## Goal
+							Quasi-steady state simulation with stepsize $\Delta t$:
+							  - $p(T) \mapsto p(T+\Delta T)$: 
+							   - update model parameters
+							  - $X(T) \mapsto X(T+\Delta T)$: 
+							   - solve locally $\quad \min W(X,p) \quad \text{s.t.} \quad c_k(X) \geq 0.$
+							### Notation
+							- $X(T)$: cell positions at time $T$
+							- $p(T)$: model parameters at time $T$
+							- $W(X) = W(X;p)$: potential energy
+							- $c_k(X) \geq 0$: inequality constraints 
+							
+						</textarea>	
+					</section >
+					<section data-background-color="white">
+						<img src="data/rtol_1e-7.gif"></img>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							There is a notable difference between 
+							$rtol=10^{-6}$ and $rtol = 10^{-7}$.
+							
+							<img src="data/example_timestep_1e-6.png" style="width:40%"></img>
+							<img src="data/example_timestep_1e-7.png" style="width:40%"></img>
+							
+							For $\texttt{rtol} =10^{-6}$ the blue cell \#29 needs three more time steps! to reach cell #28.
+							
+						</textarea>	
+					</section>
+					
+					<section data-markdown>
+						<textarea data-template>
+							There is a notable difference between 
+							$rtol=10^{-6}$ and $rtol = 10^{-7}$.
+							
+							<img src="data/example_timestep_1e-6.png" style="width:40%"></img>
+							<img src="data/example_timestep_1e-7.png" style="width:40%"></img>
+							
+							For $\texttt{rtol} =10^{-6}$ the blue cell \#29 needs three more time steps! to reach cell #28.
+							
+						</textarea>	
+					</section >
+				</section>
+				
+				<section>
+					<h1>Why do we need changes?</h1>
+					<section data-markdown>
+						<textarea data-template>
+							The current numerical method is unstable!
+							
+							Why? 
+							
+							
+						</textarea>	
+					</section >
+					<section data-background-color="white">
+						<img src="data/rtol_1e-7.gif"></img>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							There is a notable difference between 
+							$rtol=10^{-6}$ and $rtol = 10^{-7}$.
+							
+							<img src="data/example_timestep_1e-6.png" style="width:40%"></img>
+							<img src="data/example_timestep_1e-7.png" style="width:40%"></img>
+							
+							For $\texttt{rtol} =10^{-6}$ the blue cell \#29 needs three more time steps! to reach cell #28.
+							
+						</textarea>	
+					</section>
+					
+					<section data-markdown>
+						<textarea data-template>
+							There is a notable difference between 
+							$rtol=10^{-6}$ and $rtol = 10^{-7}$.
+							
+							<img src="data/example_timestep_1e-6.png" style="width:40%"></img>
+							<img src="data/example_timestep_1e-7.png" style="width:40%"></img>
+							
+							For $\texttt{rtol} =10^{-6}$ the blue cell \#29 needs three more time steps! to reach cell #28.
+							
+						</textarea>	
+					</section >
+				</section>
+				
+				
+				<section>
+					<h1>Simplified setting</h1>
+					<section data-markdown><textarea data-template>
+						Consider $W(x) = (x+1)^2 \quad c(x) = x \geq 0 \quad \Rightarrow x^* = 0$
+						
+						Infeasible starting value: $x_0 = -1$
+						
+						- Numerical methods needs model for how to become feasible.
+					</textarea>	</section >
+				</section>
+				
+				<section>
+					<h1>Review of numerical algorithms</h1>
+					<section data-markdown><textarea data-template>
+						### Classification of Lagrangian multipliers
+						
+						- force level:
+						  $m \color{Orange}{\ddot x} = \dots - \color{Orange}{\lambda_F} \frac{\partial c}{\partial x}$
+						  <br> <span style="color:YellowGreen">most physical $\leftrightarrow$ overshooting and stiff numerics</span>
+						- velocity level: 
+						  $c \color{Orange}{\dot x} = \dots - \color{Orange}{\lambda_V} \frac{\partial c}{\partial x}$
+						  <br> <span style="color:YellowGreen">in between</span>
+						- position level: 
+						  $\color{Orange}{x(t+\Delta t) - x(t)} = -\color{Orange}{\lambda_P} \frac{\partial c}{\partial x}$
+						  <br> <span style="color:YellowGreen">no realistic elastic collisions $\leftrightarrow$ minimal overshoting and almost unconditionally stable</span>
+					</textarea>	</section >
+					<section data-markdown data-auto-animate><textarea data-template>
+						### Popular algorithms in contact mechanics
+						- force level:
+						  - augmented Lagrangian methods
+						  - <span data-id="0">damped Arrow-Hurwiz algorithm</span>
+						  - <span data-id="1">penalty method</span>
+						  - active set method (with SQP)
+						- velocity level: 
+						  - projected Gauss-Seidel
+						  - projected Jacobi iteration
+						- position level: 
+						  - <span data-id="2">position based dynamics (Müller et al; 2004, 2016, 2019)</span>
+					</textarea>	</section >
+					<section data-markdown data-auto-animate><textarea data-template>
+						### Popular algorithms in contact mechanics
+						- force level:
+						  - augmented Lagrangian methods
+						  - <span data-id="0" style="color:YellowGreen">damped Arrow-Hurwiz algorithm</span>
+						  - <span data-id="1" style="color:YellowGreen">penalty method </span>
+						  - active set method (with SQP)
+						- velocity level: 
+						  - projected Gauss-Seidel
+						  - projected Jacobi iteration
+						- position level: 
+						  - <span data-id="2" style="color:YellowGreen">position based dynamics (Müller et al; 2004, 2016, 2019)</span>
+					</textarea>	</section >
+					<section data-markdown><textarea data-template>
+						### Comparison of force and position based dynamics
+						
+						Consider $W(x) = x$ and $c(x) = x > 0$ with infeasible initial point $x_0 = -1$
+						
+						
+						
+						- force level:
+						  - augmented Lagrangian methods
+						  - <span data-id="0" style="color:YellowGreen">damped Arrow-Hurwiz algorithm</span>
+						  - <span data-id="1" style="color:YellowGreen">penalty method </span>
+						  - active set method (with SQP)
+						- velocity level: 
+						  - projected Gauss-Seidel
+						  - projected Jacobi iteration
+						- position level: 
+						  - <span data-id="2" style="color:YellowGreen">position based dynamics (Müller et al; 2004, 2016, 2019)</span>
+					</textarea>	</section >
+				</section>
+				
+				<section>
+					Position based dynamics
+					<section data-markdown><textarea data-template>
+						
+					</textarea>	</section >
+					
+					
+					<section>
+						Position based dynamics become physical for very small time-steps!
+						
+						This shifts the workload from solving constrainted minimisation algorithms
+					</section>
+				</section>
+				
+				
+				<section>
+					<h1>Direct simulation</h1>
+					<section data-markdown><textarea data-template>
+						
+					</textarea>	</section >
+				</section>
+				
+				<section data-markdown>
+					<textarea data-template>
+						# test
+					</textarea>	
+				</section >
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+			  // The "normal" size of the presentation, aspect ratio will
+			  // be preserved when the presentation is scaled to fit different
+			  // resolutions. Can be specified using percentage units.
+			  width: 1280,
+			  height: 678,
+
+			  // Factor of the display size that should remain empty around
+			  // the content
+			  margin: 0.04,
+
+			  // Bounds for smallest/largest possible scale to apply to content
+			  minScale: 0.2,
+			  maxScale: 2.0,
+				hash: true,
+				center: false,
+				math: {
+		      mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+		      config: 'TeX-AMS_HTML-full',
+		      // pass other options into `MathJax.Hub.Config()`
+		      TeX: { Macros: { RR: "{\\bf R}" } }
+		    },
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath ],
+			// ...
+			chalkboard: {
+			// optionally load pre-recorded chalkboard drawing from file
+				src: "chalkboard.json",
+				theme: "green_chalkboard",
+				penWidth: 4,
+				chalkWidth: 6,
+			},
+			dependencies: [
+				// ...
+				{ src: 'plugin/chalkboard/chalkboard.js' },
+				// ...
+			],
+			keyboard: {
+				67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+				66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+				46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+				 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+				68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				88: function() { RevealChalkboard.colorNext() },	// cycle colors forward when 'x' is pressed
+				89: function() { RevealChalkboard.colorPrev() },	// cycle colors backward when 'y' is pressed
+			},
+			// ...
+			
+			});
+			
+		</script>
+	</body>
+</html>

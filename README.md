@@ -22,7 +22,7 @@ Now, the output folder contains the `index.html` which is the presentation.
 
 # Tutorial/Example
 
-We will use the slides from the folder `example/mypaint` to generate the presentation `example/mypaint/index.html`.
+We will use the slides from the folder `examples/mypaint` to generate the presentation `examples/mypaint/index.html`.
 
 ## How to generate slides
 
@@ -33,10 +33,10 @@ We will use the slides from the folder `example/mypaint` to generate the present
 ```cd MyPaintEdSlides```
 
 3. Call the program `ora_interface` in a python shell:
-```python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./example/mypaint/*.ora ./example/mypaint/build```
+```python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./examples/mypaint/*.ora ./examples/mypaint/build```
 
 You might have to install missing python libraries. (PIL, numpy)
-Now, the folder `./example/mypaint/build` should contain the example presentation in the file `index.html`, see
+Now, the folder `./examples/mypaint/build` should contain the example presentation in the file `index.html`, see
 [demo](https://steffenpl.github.io/MyPaintEdSlides/examples/mypaint/build/index.html#/).
 
 The parameters are expected to be such that:

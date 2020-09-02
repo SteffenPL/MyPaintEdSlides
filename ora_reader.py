@@ -221,8 +221,8 @@ class OraPresentation:
 
         self.ora_slides.append(ora_slide)
 
-    def load_from_folder(self, pattern, with_background=False, overwrite=True, use_groups=True):
-        for file in sorted(glob.glob(pattern)):
+    def load_from_folder(self, input_files, with_background=False, overwrite=True, use_groups=True):
+        for file in sorted([one_file for pattern in input_files for one_file in glob.glob(pattern) ]):
             ora = OraReader(buildDir=self.buildDir, outputDir=self.outputDir, use_groups=use_groups)
             ora.load_file(file)
             ora.generate_slides(with_background=with_background, overwrite=overwrite)

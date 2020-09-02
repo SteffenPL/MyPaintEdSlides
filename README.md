@@ -36,7 +36,7 @@ We will use the slides from the folder `example/mypaint` to generate the present
 `python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./example/mypaint/*.ora ./example/mypaint/build` 
 
 You might have to install missing python libraries. (PIL, numpy)
-Now, the folder ``./example/mypaint/build` should contain the example presentation in the file `index.html`.
+Now, the folder `./example/mypaint/build` should contain the example presentation in the file `index.html`.
 
 ## How to create the slides (with MyPaint)
 
@@ -84,8 +84,8 @@ a global background is used.
 ### Flags
 
 It is possible to add certain flags to alter the behaviour:
-- if the layer is called background, it will be ignored. (There is a switch in the python code, but it is not exposed yet.)
-- if the layer constaints (skip) it will be ignored.
+- If the layer is called `background`, it will be ignored. (There is a switch in the python code, but it is not exposed yet.)
+- If the layer constaints the string `(skip)` it will be ignored.
 
 There are a few additions planned, namely: `(delete:<Layer name>)` to remove a layer in the following subslides.
 
@@ -97,7 +97,7 @@ So, any reveal.js html file can be transformed into a template by just inserting
 ## Including videos
 
 The generated presentation can be edited afterwards. In the past, I often used this to add videos. See for example 
-[here](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2018/sumplectic_methods/index.html#/14/8)
+[here](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2018/sumplectic_methods/index.html#/14/8).
 
 # Presentations created with MyPaintEdSlides
 

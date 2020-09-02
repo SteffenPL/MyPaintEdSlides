@@ -16,7 +16,7 @@ Demo:
 
 In very, very short:
  1. use MyPaint (or Krita) to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
- 3. run ```python ora_interface.py <template_file> <input folder> <output_folder>```
+ 3. run ```python ora_interface.py <template_file> <input(s)> <output_folder>```
 
 Now, the output folder contains the `index.html` which is the presentation.
 
@@ -27,16 +27,24 @@ We will use the slides from the folder `example/mypaint` to generate the present
 ## How to generate slides
 
 1. Clone the repository 
-`git clone https://github.com/SteffenPL/MyPaintEdSlides.git`
+```git clone https://github.com/SteffenPL/MyPaintEdSlides.git```
 
 2. Open the new folder MyPaintedSlides
-`cd MyPaintEdSlides`
+```cd MyPaintEdSlides```
 
 3. Call the program `ora_interface` in a python shell:
-`python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./example/mypaint/*.ora ./example/mypaint/build` 
+```python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./example/mypaint/*.ora ./example/mypaint/build```
 
 You might have to install missing python libraries. (PIL, numpy)
-Now, the folder `./example/mypaint/build` should contain the example presentation in the file `index.html`.
+Now, the folder `./example/mypaint/build` should contain the example presentation in the file `index.html`, see
+[demo](https://steffenpl.github.io/MyPaintEdSlides/examples/mypaint/build/index.html#/).
+
+The parameters are expected to be such that:
+- `<template_file>` is a HTML file which contains a line `<!--slides-->` which will be the place were the slides are inserted.
+Moreover, the parent folder of this file will be copied into the output directory, i.e. all javascript dependencies and backgrounds should be in the parent folder of the file.
+- `<input(s)>` can be either a single `.ora` file or you can use `*.ora` to determine a collection of `.ora` files.
+- `<output_folder>` the folder were the presentation will be generated.
+
 
 ## How to create the slides (with MyPaint)
 

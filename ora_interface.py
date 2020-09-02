@@ -7,7 +7,7 @@ import tempfile
 def main():
     parser = argparse.ArgumentParser(description="Converts .ora files into HTML presentations.")
     parser.add_argument("template", help="Template directory", type=str, default=os.path.join("html_templates","reveal_with_chalkboard","default.html_template"))
-    parser.add_argument("input", help="All input files, either a single filer, or collected files via *.ora", type=str)
+    parser.add_argument("input", help="All input files - can be one, many, or a wildcard list (like *.ora)", type=str, nargs='+')
     parser.add_argument("output", help="Output directory", type=str)
 
     args = parser.parse_args()

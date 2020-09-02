@@ -16,13 +16,13 @@ Demo:
 
 In very, very short:
  1. use MyPaint (or Krita) to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
- 2. copy the `demo` folder to a place which will later contain the final presentation. (We need the backgrounds and the reveal.js files)
- 3. run ```python ora_interface.py "<input folder>" <output_folder>```
+ 3. run ```python ora_interface.py <template_file> <input folder> <output_folder>```
 
 Now, the output folder contains the `index.html` which is the presentation.
 
-# Tutorial
+# Tutorial/Example
 
+We will use the slides from the folder `example/mypaint` to generate the presentation `example/mypaint/index.html`.
 
 ## How to generate slides
 
@@ -32,7 +32,11 @@ Now, the output folder contains the `index.html` which is the presentation.
 2. Open the new folder MyPaintedSlides
 `cd MyPaintEdSlides`
 
-3. 
+3. Call the program `ora_interface` in a python shell:
+`python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./example/mypaint/*.ora ./example/mypaint/build` 
+
+You might have to install missing python libraries. (PIL, numpy)
+Now, the folder ``./example/mypaint/build` should contain the example presentation in the file `index.html`.
 
 ## How to create the slides (with MyPaint)
 
@@ -48,14 +52,15 @@ This is best explained with an example:
 - layer 1
 - layer 2
 
-001_slide.ora:
+001_groups.ora:
 - layer 0: name="background"
 - layer 1
 - group 1:
   - layer 2
   - group 2:
-    - layer 3
-  - layer 4
+    - layer 2.1
+  - group 3
+- layer 4 (skip)
 - layer 5
 
 
@@ -69,9 +74,9 @@ slide 0:
 slide 1:
 - subslide with layer 1
 - subslide with layer 1,2 (enter group 1)
-- subslide with layer 1,2,3 (enter group 2)
-- subslide with layer 1,2,4 (leave group 2, still within group 1)
-- subslide with layer 1,5 (leave group 1)
+- subslide with layer 1,2,2.1 (enter group 2)
+- subslide with layer 1,2,3 (leave group 2, still within group 1)
+- subslide with layer 1,5 (leave group 1, skip Layer 4)
 
 If wanted, the background could also be added, otherwise
 a global background is used.
@@ -79,15 +84,20 @@ a global background is used.
 ### Flags
 
 It is possible to add certain flags to alter the behaviour:
-- 
+- if the layer is called background, it will be ignored. (There is a switch in the python code, but it is not exposed yet.)
+- if the layer constaints (skip) it will be ignored.
 
+There are a few additions planned, namely: `(delete:<Layer name>)` to remove a layer in the following subslides.
 
 ## Creating own html templates
 
+The `default.html_template` file is just a `.html` file were the line `<!--slides-->` will be replaced by the generates slides.
+So, any reveal.js html file can be transformed into a template by just inserting `<!--slides-->` in the body at the position of the slides.
 
 ## Including videos
 
-
+The generated presentation can be edited afterwards. In the past, I often used this to add videos. See for example 
+[here](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2018/sumplectic_methods/index.html#/14/8)
 
 # Presentations created with MyPaintEdSlides
 
@@ -104,56 +114,6 @@ It is possible to add certain flags to alter the behaviour:
 [Presentation on Partially kinetic systems (aka 'particles on rails'), Kinetic Theory Coffee Break, 2020](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2020/partially_kinetic_systems/index.html)
 
 
-
-
-# MyPaintEdSlides
-
-*Currently the package is not final!*
-
-We sketch the basic idea behind the presentation generator.
-
-For a given .ora file, we extract all layers and
-assemble slides according to the following rule.
-
-Example:
-
-000_title.ora:
-- layer 0: name="background"
-- layer 1
-- layer 2
-- layer 3
-
-001_slide.ora:
-- layer 0: name="background"
-- layer 1
-- group 1:
-  - layer 2
-  - group 2:
-    - layer 3
-  - layer 4
-- layer 5
-
-
-This would generate a HTML presentation with
-two slides, containting the following content:
-
-slide 0:
-- subslide with layer 1
-- subslide with layer 1,2
-- subslide with layer 1,2,3
-
-slide 1:
-- subslide with layer 1
-- subslide with layer 1,2 (enter group 1)
-- subslide with layer 1,2,3 (enter group 2)
-- subslide with layer 1,2,4 (leave group 2, still within group 1)
-- subslide with layer 1,5 (leave group 1)
-
-If wanted, the background could also be added, otherwise
-a global background is used.
-
-The HTML is based on reveal.js, this python script does only generate the body for the presentation
-and composes the layers according to their groups.
 
 # Documentation
 

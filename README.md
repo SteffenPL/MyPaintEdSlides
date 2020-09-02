@@ -18,7 +18,7 @@ In very, very short:
  1. use MyPaint (or Krita) to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
  3. run ```python ora_interface.py <template_file> <input(s)> <output_folder>```
 
-Now, the output folder contains the `index.html` which is the presentation.
+Now, the output folder contains the new file `index.html` which is the presentation.
 
 # Tutorial/Example
 
@@ -105,7 +105,7 @@ So, any reveal.js html file can be transformed into a template by just inserting
 ## Including videos
 
 The generated presentation can be edited afterwards. In the past, I often used this to add videos. See for example 
-[here](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2018/sumplectic_methods/index.html#/14/8).
+[here](https://steffenpl.github.io/MyPaintEdSlidesExamples/talks/2018/symplectic_methods/index.html#/14/8).
 
 # Presentations created with MyPaintEdSlides
 

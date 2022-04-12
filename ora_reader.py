@@ -161,7 +161,7 @@ class OraReader:
                     self.slide_defs.append(slide_content)
                 layer.z = z
     
-                if layer.name == "background":
+                if layer.name.lower() == "background":
                     self.bg = layer
                 else:
                     self.layers.append(layer)
@@ -185,7 +185,7 @@ class OraReader:
                 print("Generate slide: %s" % slide_def )
 
                 if with_background:
-                    img_np = self.bg.img_np
+                    img_np = self.bg.img_np.copy()
                 else:
                     img_np = np.ones((self.height, self.width, 4), dtype=np.float32)
                     img_np[:,:,3] = 0

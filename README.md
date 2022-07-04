@@ -73,20 +73,20 @@ This is best explained with an example:
 
 ```
 000_title.ora:
-- layer 0: name="background"
-- layer 1
-- layer 2
+│ layer 0: name="background"
+│ layer 1
+│ layer 2
 
 001_groups.ora:
-- layer 0: name="background"
-- layer 1
-- group 1:
-  - layer 2
-  - group 2:
-    - layer 2.1
-  - group 3
-- layer 4 (skip)
-- layer 5
+│ layer 0: name="background"
+│ layer 1
+│ group 1:
+└─── layer 2
+│  | group 2:
+│  └── layer 2.1
+│  | layer 3
+│ layer 4 (skip)
+│ layer 5
 ```
 
 This would generate a HTML presentation with

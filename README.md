@@ -14,11 +14,11 @@ Demo:
 
 # Usage
 
-In very, very short:
+## In very, very short:
  1. use MyPaint (or Krita) to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
  3. run ```python ora_interface.py <template_file> <input(s)> <output_folder>```
 
-Detailed instructions:
+## Detailed instructions:
 1. Install python. A popular choice is https://www.anaconda.com/
 2. Download a current release of this repository: https://github.com/SteffenPL/MyPaintEdSlides/releases/tag/v0.1
 3. Unpack the repository to a folder of your choice.

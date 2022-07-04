@@ -20,7 +20,7 @@ In very, very short:
 
 Detailed instructions:
 1. Install python. A popular choice is https://www.anaconda.com/
-2. Download a current release of this repository: 
+2. Download a current release of this repository: https://github.com/SteffenPL/MyPaintEdSlides/releases/tag/v0.1
 3. Unpack the repository to a folder of your choice.
 4. Create a subfolder called `talk` (or any name you want).
 5. Create your slides as `.ora` files with MyPaint or Krita and store the slides in the folder `talk`.

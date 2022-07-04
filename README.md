@@ -19,7 +19,7 @@ Demo:
  3. run ```python ora_interface.py <template_file> <input(s)> <output_folder>```
 
 ## Detailed instructions:
-1. Install python. A popular choice is https://www.anaconda.com/
+1. Install python. A popular choice is https://www.anaconda.com/  You might have to install missing python libraries. (PIL, numpy)
 2. Download a current release of this repository: https://github.com/SteffenPL/MyPaintEdSlides/releases/tag/v0.1
 3. Unpack the repository to a folder of your choice.
 4. Create a subfolder called `talk` (or any name you want).
@@ -28,32 +28,17 @@ Demo:
 7. Run ```python ora_interface.py html_templates/reveal_with_chalkboard/ ./talk ./slides/talk```
 8. Open the file `./slides/talk/index.html`. This should be your presentation.
 
+
+You can draw on the slides during the talk by pressing the key `c` thanks to https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard
+
+
 More advanced usage includes to modify the html_template. Options are to change the background by editing the line
 ```javascript
 // Parallax background image
 parallaxBackgroundImage: 'parallax-2.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
 ```
 
-You can draw on the slides during the talk by pressing the key `c` thanks to https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard
-
-# Tutorial/Example
-
-We will use the slides from the folder `examples/mypaint` to generate the presentation `examples/mypaint/index.html`.
-
-## How to generate slides
-
-1. Clone the repository 
-```git clone https://github.com/SteffenPL/MyPaintEdSlides.git```
-
-2. Open the new folder MyPaintedSlides
-```cd MyPaintEdSlides```
-
-3. Call the program `ora_interface` in a python shell:
-```python ./ora_interface.py ./html_templates/reveal_with_chalkboard/default.html_template ./examples/mypaint/*.ora ./examples/mypaint/build```
-
-You might have to install missing python libraries. (PIL, numpy)
-Now, the folder `./examples/mypaint/build` should contain the example presentation in the file `index.html`, see
-[demo](https://steffenpl.github.io/MyPaintEdSlides/examples/mypaint/build/index.html#/).
+The inputs for the python script are
 
 The parameters are expected to be such that:
 - `<template_file>` is a HTML file which contains a line `<!--slides-->` which will be the place were the slides are inserted.
@@ -67,7 +52,7 @@ Moreover, the parent folder of this file will be copied into the output director
 Reveal.js supports slides (left-right) and subslides (up-down).
 
 We use seperate `.ora` files to differentiate between slides and
-within one `.ora` file we use groups to generate the subslides.
+within one `.ora` file we use group and layers to generate the subslides.
 
 This is best explained with an example:
 

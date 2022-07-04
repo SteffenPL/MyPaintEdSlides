@@ -29,9 +29,9 @@ Detailed instructions:
 8. Open the file `./slides/talk/index.html`. This should be your presentation.
 
 More advanced usage includes to modify the html_template. Options are to change the background by editing the line
-```html
-				// Parallax background image
-				parallaxBackgroundImage: 'parallax-2.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+```javascript
+// Parallax background image
+parallaxBackgroundImage: 'parallax-2.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
 ```
 
 You can draw on the slides during the talk by pressing the key `c` thanks to https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard

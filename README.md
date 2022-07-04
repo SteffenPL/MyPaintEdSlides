@@ -1,4 +1,4 @@
-# Draw your own presentations!
+# 🎨 Draw your own presentations!
 
 MyPaint is a great tool for digital drawing.
 To my knowledge, there exists no tool so far, which automatically 

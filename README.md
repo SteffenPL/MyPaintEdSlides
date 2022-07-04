@@ -55,6 +55,7 @@ within one `.ora` file we use groups to generate the subslides.
 
 This is best explained with an example:
 
+```
 000_title.ora:
 - layer 0: name="background"
 - layer 1
@@ -70,11 +71,12 @@ This is best explained with an example:
   - group 3
 - layer 4 (skip)
 - layer 5
-
+```
 
 This would generate a HTML presentation with
 two slides, containting the following content:
 
+```
 slide 0:
 - subslide with layer 1
 - subslide with layer 1,2
@@ -85,6 +87,7 @@ slide 1:
 - subslide with layer 1,2,2.1 (enter group 2)
 - subslide with layer 1,2,3 (leave group 2, still within group 1)
 - subslide with layer 1,5 (leave group 1, skip Layer 4)
+```
 
 If wanted, the background could also be added, otherwise
 a global background is used.

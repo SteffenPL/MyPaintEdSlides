@@ -18,7 +18,23 @@ In very, very short:
  1. use MyPaint (or Krita) to create the slides, save as `.ora` into one folder. The slides will appear in alphabetical order.
  3. run ```python ora_interface.py <template_file> <input(s)> <output_folder>```
 
-Now, the output folder contains the new file `index.html` which is the presentation.
+Detailed instructions:
+1. Install python. A popular choice is https://www.anaconda.com/
+2. Download a current release of this repository: 
+3. Unpack the repository to a folder of your choice.
+4. Create a subfolder called `talk` (or any name you want).
+5. Create your slides as `.ora` files with MyPaint or Krita and store the slides in the folder `talk`.
+6. Open a python terminal and navigate to the root of the repository folder (which containts the file `ora_interface.py`.
+7. Run ```python ora_interface.py html_templates/reveal_with_chalkboard/ ./talk ./slides/talk```
+8. Open the file `./slides/talk/index.html`. This should be your presentation.
+
+More advanced usage includes to modify the html_template. Options are to change the background by editing the line
+```html
+				// Parallax background image
+				parallaxBackgroundImage: 'parallax-2.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+```
+
+You can draw on the slides during the talk by pressing the key `c` thanks to https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard
 
 # Tutorial/Example
 

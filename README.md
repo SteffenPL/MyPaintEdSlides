@@ -99,8 +99,6 @@ It is possible to add certain flags to alter the behaviour:
 - If the layer is called `background`, it will be ignored. (There is a switch in the python code, but it is not exposed yet.)
 - If the layer constaints the string `(skip)` it will be ignored.
 
-There are a few additions planned, namely: `(delete:<Layer name>)` to remove a layer in the following subslides.
-
 ## Creating own html templates
 
 The `default.html_template` file is just a `.html` file were the line `<!--slides-->` will be replaced by the generates slides.
